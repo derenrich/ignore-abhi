@@ -54,7 +54,7 @@ class SlackInterceptor:
             if 'history' in data or 'messages' in data:
                 history = data.get('history', {}).get('messages') or data.get('messages')
                 for cur_message in history:
-                    if (cur_message.get('user') in self.bannedusers) and (cur_message.get('type') == "message"):
+                    if (cur_message.get('user') in self.banned_users) and (cur_message.get('type') == "message"):
                         self.handle_message(cur_message)
                 response.text = json.dumps(data)
 
