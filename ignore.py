@@ -62,7 +62,6 @@ class SlackInterceptor:
             if 'file' in data:
                 f = data['file']
                 if f['id'] in self.ids_to_ban:
-                    f = data['file']
                     f['name'] = self.bwaaah(f['name'])
                     f['title'] = self.bwaaah(f['title'])
                     f['mimetype'] = 'image/jpeg'
