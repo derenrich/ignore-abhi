@@ -60,20 +60,20 @@ class SlackInterceptor:
 
                         
             if 'file' in data:
-                for f in  data['file']:
-                    if f['id'] in self.ids_to_ban:
-                        f = data['file']
-                        f['name'] = self.bwaaah(f['name'])
-                        f['title'] = self.bwaaah(f['title'])
-                        f['mimetype'] = 'image/jpeg'
-                        f['filetype'] = 'jpeg'
-                        f['pretty_type'] = 'jpeg'
-                        f['url_private'] = TRUMPET_IMAGE_URL
-                        f['url_private_download'] = TRUMPET_IMAGE_URL
-                        f['permalink'] = TRUMPET_IMAGE_URL
-                        for k in f.keys():
-                            if 'thumb_' in k and ('_h' not in k) and ('_w' not in k) and (k != "thumb_tiny"):
-                                f[k] = TRUMPET_IMAGE_URL
+                f = data['file']
+                if f['id'] in self.ids_to_ban:
+                    f = data['file']
+                    f['name'] = self.bwaaah(f['name'])
+                    f['title'] = self.bwaaah(f['title'])
+                    f['mimetype'] = 'image/jpeg'
+                    f['filetype'] = 'jpeg'
+                    f['pretty_type'] = 'jpeg'
+                    f['url_private'] = TRUMPET_IMAGE_URL
+                    f['url_private_download'] = TRUMPET_IMAGE_URL
+                    f['permalink'] = TRUMPET_IMAGE_URL
+                    for k in f.keys():
+                        if 'thumb_' in k and ('_h' not in k) and ('_w' not in k) and (k != "thumb_tiny"):
+                            f[k] = TRUMPET_IMAGE_URL
                 response.text = json.dumps(data)
         
     def websocket_message(self, flow):
