@@ -54,14 +54,14 @@ class SlackInterceptor:
             if 'history' in data or 'messages' in data:
                 history = data.get('history', {}).get('messages') or data.get('messages')
                 for cur_message in history:
-                    if (cur_message.get('user') in self.banned_users) and (cur_message.get('type') == "message"):
+                    if (not isinstance(cur_message, str)) and (cur_message.get('user') in self.banned_users) and (cur_message.get('type') == "message"):
                         self.handle_message(cur_message)
                 response.text = json.dumps(data)
 
                         
             if 'file' in data:
                 f = data['file']
-                if f['id'] in self.ids_to_ban:
+                if (not isinstance(cur_message, str)) and f['id'] in self.ids_to_ban:
                     f['name'] = self.bwaaah(f['name'])
                     f['title'] = self.bwaaah(f['title'])
                     f['mimetype'] = 'image/jpeg'
@@ -81,7 +81,7 @@ class SlackInterceptor:
             if cur_message.get('user') in self.banned_users:
                 self.handle_message(cur_message)
                 flow.messages[-1].content = json.dumps(cur_message)
-            if cur_message.get('subtype') == 'message_changed' and cur_message['message']['user'] in self.banned_users:
+            if cur_message.get('subtype') == 'message_changed' and cur_message.get('message',{}).get('user') in self.banned_users:
                 self.handle_message(cur_message)
                 flow.messages[-1].content = json.dumps(cur_message)
 
