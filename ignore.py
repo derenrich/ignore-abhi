@@ -78,12 +78,13 @@ class SlackInterceptor:
     def websocket_message(self, flow):
         cur_message = json.loads(flow.messages[-1].content)
         if cur_message.get('type') == "message":
-            if cur_message.get('user') in self.banned_users:
-                self.handle_message(cur_message)
-                flow.messages[-1].content = json.dumps(cur_message)
             if cur_message.get('subtype') == 'message_changed' and cur_message.get('message',{}).get('user') in self.banned_users:
+                self.handle_message(cur_message['message'])
+                flow.messages[-1].content = json.dumps(cur_message)
+            elif cur_message.get('user') in self.banned_users:
                 self.handle_message(cur_message)
                 flow.messages[-1].content = json.dumps(cur_message)
+
 
 addons = [
     SlackInterceptor()
