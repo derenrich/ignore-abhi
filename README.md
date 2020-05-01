@@ -7,7 +7,7 @@ This will probably break when slack updates their backend.
 
 # Instructions
 * Install mitmproxy
-* Configure your browser to point at said proxy
+* Configure your browser to point at said proxy (probably HTTP proxy 127.0.0.1:8080)
 * Install mitmproxy's certificate in said browser (the generated cert should live in ~/.mitmproxy)
 * Determine the user IDs of the users you want to ignore (they look something like `U2925636U`). You can get this by looking at the HTML or going to their user profile and looking at the URL..       
 * Invoke mitmproxy via something like `mitmdump -q --allow-hosts slack  -s ./ignore.py --set bannedusers=$CSV_LIST_OF_USER_IDS_TO_BAN`
