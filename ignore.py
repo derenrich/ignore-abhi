@@ -1,7 +1,7 @@
 from mitmproxy import ctx
 import json
 
-TRUMPET_IMAGE_URL = "https://upload.wikimedia.org/wikipedia/commons/6/6d/Posaune.jpg"
+TROMBONE_IMAGE_URL = "https://upload.wikimedia.org/wikipedia/commons/6/6d/Posaune.jpg"
 
 class SlackInterceptor:
     def __init__(self):
@@ -35,12 +35,12 @@ class SlackInterceptor:
                 f['mimetype'] = 'image/jpeg'
                 f['filetype'] = 'jpeg'
                 f['pretty_type'] = 'JPEG'
-                f['url_private'] = TRUMPET_IMAGE_URL
-                f['url_private_download'] = TRUMPET_IMAGE_URL
-                f['permalink'] = TRUMPET_IMAGE_URL
+                f['url_private'] = TROMBONE_IMAGE_URL
+                f['url_private_download'] = TROMBONE_IMAGE_URL
+                f['permalink'] = TROMBONE_IMAGE_URL
                 for k in f.keys():
                     if 'thumb_' in k and ('_h' not in k) and ('_w' not in k) and (k != "thumb_tiny"):
-                        f[k] = TRUMPET_IMAGE_URL
+                        f[k] = TROMBONE_IMAGE_URL
         if msg.get('subtype') == 'message_changed':
             self.handle_message(msg['message'])
         return msg
@@ -67,12 +67,12 @@ class SlackInterceptor:
                     f['mimetype'] = 'image/jpeg'
                     f['filetype'] = 'jpeg'
                     f['pretty_type'] = 'jpeg'
-                    f['url_private'] = TRUMPET_IMAGE_URL
-                    f['url_private_download'] = TRUMPET_IMAGE_URL
-                    f['permalink'] = TRUMPET_IMAGE_URL
+                    f['url_private'] = TROMBONE_IMAGE_URL
+                    f['url_private_download'] = TROMBONE_IMAGE_URL
+                    f['permalink'] = TROMBONE_IMAGE_URL
                     for k in f.keys():
                         if 'thumb_' in k and ('_h' not in k) and ('_w' not in k) and (k != "thumb_tiny"):
-                            f[k] = TRUMPET_IMAGE_URL
+                            f[k] = TROMBONE_IMAGE_URL
                 response.text = json.dumps(data)
         
     def websocket_message(self, flow):
